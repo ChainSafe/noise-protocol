@@ -198,7 +198,7 @@ function initialize (handshakePattern, initiator, prologue, s, e, rs, re) {
 
   var state = new HandshakeState()
 
-  var protocolName = Buffer.from(`Noise_${handshakePattern}_25519_XChaChaPoly_BLAKE2b`)
+  var protocolName = Buffer.from(`Noise_${handshakePattern}_25519_XChaChaPoly_SHA256`)
 
   symmetricState.initializeSymmetric(state.symmetricState, protocolName)
   symmetricState.mixHash(state.symmetricState, prologue)
