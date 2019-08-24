@@ -19,7 +19,7 @@ var noise = require('noise-protocol')
 var sClient = noise.keygen()
 var sServer = noise.keygen()
 
-// Initialize a Noise_KK_25519_XChaChaPoly_BLAKE2b handshake
+// Initialize a Noise_KK_25519_XChaChaPoly_SHA256 handshake
 var client = noise.initialize('KK', true, Buffer.alloc(0), sClient, null, sServer.publicKey)
 var server = noise.initialize('KK', false, Buffer.alloc(0), sServer, null, sClient.publicKey)
 

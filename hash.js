@@ -1,13 +1,10 @@
 var sodium = require('sodium-native')
 var assert = require('nanoassert')
-var hmacBlake2b = require('hmac-blake2b')
+var hmacSHA256 = require('crypto-js/hmac-sha256')
 var dh = require('./dh')
 
-var HASHLEN = 64
-var BLOCKLEN = 128
-
-assert(hmacBlake2b.KEYBYTES === BLOCKLEN, 'mismatching hmac BLOCKLEN')
-assert(hmacBlake2b.BYTES === HASHLEN, 'mismatching hmac HASHLEN')
+var HASHLEN = 32
+var BLOCKLEN = 64
 
 module.exports = {
   HASHLEN,
@@ -23,8 +20,14 @@ function hash (out, data) {
   sodium.crypto_generichash_batch(out, data)
 }
 
+/**
+ * @param {Buffer} out
+ * @param {{ toString: () => string | CryptoJS.WordArray; }} key
+ * @param {Buffer[] | CryptoJS.LibWordArray} data
+ */
 function hmac (out, key, data) {
-  return hmacBlake2b(out, data, key)
+  const res = hmacSHA256(data.toString(), key.toString())
+  out.set(Buffer.from(res.toString(), 'hex'))
 }
 
 var TempKey = sodium.sodium_malloc(HASHLEN)

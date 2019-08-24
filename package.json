@@ -5,7 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "clone": "^2.1.2",
-    "hmac-blake2b": "^0.2.0",
+    "crypto-js": "^3.1.9-1",
     "nanoassert": "^1.1.0",
     "sodium-native": "^2.2.1"
   },
